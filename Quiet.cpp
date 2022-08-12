@@ -2,13 +2,13 @@
 #include <Windows.h>
 using namespace std;
 
-LPCWSTR help_info = LR"(Quiet v1.1 RcINS 2022
-Creates a process without windows (CreateProcessW, CREATE_NO_WINDOW).
+LPCWSTR help_info = LR"(Quiet v1.2 RcINS 2022
+Creates a process without windows (CreateProcessW, CREATE_NO_WINDOW) and waits it to exit.
 
-Usage: quiet.exe cmdLine
+Usage: quiet[.exe] cmdLine
 
 cmdLine     Command line to start.
-/?          Displays this help.
+-h          Displays this help.
 
 Remarks:
 1. Quiet creates no window unless it's displaying help.
@@ -20,7 +20,7 @@ int APIENTRY wWinMain(
 	_In_ LPWSTR lpCmdLine,
 	_In_ int)
 {
-	if (wcslen(lpCmdLine) == 0 || wcscmp(lpCmdLine, L"/?") == 0)
+	if (wcslen(lpCmdLine) == 0 || wcscmp(lpCmdLine, L"-h") == 0)
 	{
 		MessageBoxW(nullptr, help_info, L"Help: Quiet", MB_OK);
 		return 1;
@@ -32,6 +32,7 @@ int APIENTRY wWinMain(
 	{
 		return -1;
 	}
+	WaitForSingleObject(process_info.hProcess, INFINITE);
 	CloseHandle(process_info.hProcess);
 	CloseHandle(process_info.hThread);
 	return 0;

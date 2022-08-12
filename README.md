@@ -3,12 +3,12 @@ Creates a process without window (CREATE_NO_WINDOW).
 
 ## Usage
 
-`quiet.exe cmdLine`
+`quiet[.exe] cmdLine`
 
 Parameter|Description
 -|-
 cmdLine|Command line to start.
-/?|Displays this help.
+-h|Displays this help.
 
 ## Remarks
 
